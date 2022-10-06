@@ -8,7 +8,8 @@ def run():
         load_nutrient()
         load_food_nutrient()
         print("data loaded")
-    print("data NOT loaded")
+    else: 
+        print("data NOT loaded")
 
 
 def load_food():
@@ -56,13 +57,7 @@ def load_food_nutrient():
         for row in reader:
             amount = float(row[3])
             if amount > 0:
-                print(amount)
                 count = count+1
-               
-                # nutrient = Nutrient.objects.get(nutrient_id=row[2])
-                # food = Food.objects.get(fdc_id=row[1])
-                # nutrient = nutrients.filter(nutrient_id=row[2]).first()
-                # food = foods.filter(fdc_id=row[1]).first()
                 nutrient=nutrient_map.get(int(row[2]))
                 food=food_map.get(int(row[1]))
                 food_nutrient = FoodNutrients(food=food, nutrient=nutrient, amount=amount)

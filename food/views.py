@@ -13,14 +13,13 @@ class FoodViewSet(ModelViewSet):
     filterset_fields = ['description']
     search_fields = ['description']
     pagination_class = pagination.PageNumberPagination
-
+    
     def get_queryset(self):
         queryset = Food.objects.all()
         nutrient_id = self.request.query_params.get('nutrient_id')
         if nutrient_id is not None:
             food_ids = FoodNutrients.objects.filter(
                 nutrient=nutrient_id).values('food')
-            print(food_ids)
             queryset = queryset.filter(fdc_id__in=food_ids)
         return queryset
 
@@ -33,15 +32,10 @@ class NutrientViewSet(ModelViewSet):
 
 
 class FoodNutrientViewset(ModelViewSet):
-    serializer_class = FoodNutrientSerializer
-
+    serializer_class = FoodNutrientSerializer    
     def get_queryset(self):
         fdc_id = self.request.query_params.get('fdc_id')
-        print("ssssssssssssssssssssssssssssssssssss")
-        print(fdc_id)
         if fdc_id is not None:
             queryset = FoodNutrients.objects.filter(food=fdc_id)
-            print(queryset)
             return queryset
-        return None
-        return queryset
+        return []
