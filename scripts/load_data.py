@@ -22,8 +22,8 @@ def load_food():
         print("Loading food")
         for row in reader:
 
-            nutrient = Food(description=row[2], fdc_id=row[0])
-            nutrient.save()
+            food = Food(description=row[2], fdc_id=row[0])
+            food.save()
 
 
 def load_nutrient():
@@ -36,7 +36,7 @@ def load_nutrient():
         print("Loading nutrients")
         for row in reader:
 
-            nutrient = Nutrient(name=row[1], nutrient_id=row[0])
+            nutrient = Nutrient(name=row[1], nutrient_id=row[0], unit_name=row[2])
             nutrient.save()
 
 def load_food_nutrient():
@@ -60,5 +60,5 @@ def load_food_nutrient():
                 count = count+1
                 nutrient=nutrient_map.get(int(row[2]))
                 food=food_map.get(int(row[1]))
-                food_nutrient = FoodNutrients(food=food, nutrient=nutrient, amount=amount)
+                food_nutrient = FoodNutrients(food=food, nutrient=nutrient, amount=amount, unit_name=nutrient.unit_name)
                 food_nutrient.save()

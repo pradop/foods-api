@@ -22,4 +22,4 @@ class FoodNutrientSerializer(serializers.ModelSerializer):
     )
     class Meta:
         model = FoodNutrients
-        fields = ['amount', 'nutrient']
+        fields = ['amount', 'nutrient', 'unit_name']
