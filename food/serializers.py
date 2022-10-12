@@ -8,6 +8,7 @@ class FoodSerializer(serializers.ModelSerializer):
         model = Food
         fields = ['description', 'fdc_id']
 
+
 class NutrientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Nutrient
@@ -20,6 +21,7 @@ class FoodNutrientSerializer(serializers.ModelSerializer):
         read_only=True,
         slug_field='name'
     )
+
     class Meta:
         model = FoodNutrients
         fields = ['amount', 'nutrient', 'unit_name']
