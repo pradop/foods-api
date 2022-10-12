@@ -16,7 +16,7 @@ class FoodViewSet(ModelViewSet):
     def get_queryset(self):
         queryset = Food.objects.all()
         nutrient_ids = self.request.query_params.getlist('nutrient_ids', '')
-        if nutrient_ids is not None:
+        if nutrient_ids:
             food_ids = FoodNutrients.objects.filter(
                 nutrient__in=nutrient_ids).values('food')
             queryset = queryset.filter(fdc_id__in=food_ids)
