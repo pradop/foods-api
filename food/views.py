@@ -17,9 +17,10 @@ class FoodViewSet(ModelViewSet):
         queryset = Food.objects.all()
         nutrient_ids = self.request.query_params.getlist('nutrient_ids', '')
         if nutrient_ids:
-            food_ids = FoodNutrients.objects.filter(
-                nutrient__in=nutrient_ids).values('food')
-            queryset = queryset.filter(fdc_id__in=food_ids)
+            for id in nutrient_ids:
+                foods = FoodNutrients.objects.filter(nutrient=id)
+                food_ids = foods.values('food')
+                queryset = queryset.filter(fdc_id__in=food_ids)
         return queryset
 
 
