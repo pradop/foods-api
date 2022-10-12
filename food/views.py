@@ -22,7 +22,7 @@ class FoodViewSet(ModelViewSet):
                 food_ids = foods.values('food')
                 queryset = queryset.filter(fdc_id__in=food_ids)
         return queryset
-
+        
 
 class NutrientViewSet(ModelViewSet):
     queryset = Nutrient.objects.all()
@@ -30,6 +30,12 @@ class NutrientViewSet(ModelViewSet):
     filter_backends = [SearchFilter]
     search_fields = ['name']
 
+    def get_queryset(self):
+        params = self.request.query_params
+        search_param = self.request.query_params.get('search','')
+        if search_param or not params:
+            return Nutrient.objects.all()
+        return Food.objects.none()
 
 class FoodNutrientViewset(ModelViewSet):
     serializer_class = FoodNutrientSerializer
